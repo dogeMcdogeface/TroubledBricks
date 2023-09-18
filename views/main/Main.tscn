@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://bok4ybig4iq65"]
+
+[ext_resource type="PackedScene" uid="uid://c7h4tmvgifs2m" path="res://views/game/view_game.tscn" id="1_c2hsm"]
+[ext_resource type="PackedScene" uid="uid://g0p6ts5c8020" path="res://GUI/overlay_gameover/overlay_gameover.tscn" id="2_hqq2d"]
+[ext_resource type="PackedScene" uid="uid://jokmuvbkhbc7" path="res://GUI/overlay_timer/overlay_timer.tscn" id="3_k8pgd"]
+[ext_resource type="PackedScene" uid="uid://dg0y51wwqiuc7" path="res://GUI/scores/GUI_score.tscn" id="4_ra2ci"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Grid" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Grid"]
+layout_mode = 2
+size_flags_horizontal = 3
+ratio = 0.8
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Grid/AspectRatioContainer"]
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Grid/AspectRatioContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(2, 2)
+size_2d_override = Vector2i(800, 1000)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="GameScreen" parent="Grid/AspectRatioContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_c2hsm")]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Overlays" type="Control" parent="Grid/AspectRatioContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="overlay_gameover" parent="Grid/AspectRatioContainer/Overlays" groups=["overlays"] instance=ExtResource("2_hqq2d")]
+visible = false
+layout_mode = 1
+
+[node name="overlay_timer" parent="Grid/AspectRatioContainer/Overlays" instance=ExtResource("3_k8pgd")]
+layout_mode = 1
+
+[node name="GUI_score" parent="Grid" groups=["game_listeners"] instance=ExtResource("4_ra2ci")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[editable path="Grid/AspectRatioContainer/Overlays/overlay_gameover"]
+[editable path="Grid/GUI_score"]

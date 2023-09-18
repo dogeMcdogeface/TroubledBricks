@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj5loyb0uuju"]
+
+[ext_resource type="Texture2D" uid="uid://outuweadasak" path="res://icon.svg" id="1_quefc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pacxa"]
+
+[node name="Area2D" type="Area2D"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pacxa")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.23125, 0.200001)
+texture = ExtResource("1_quefc")

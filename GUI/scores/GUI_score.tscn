@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg0y51wwqiuc7"]
+
+[ext_resource type="Script" path="res://GUI/scores/GUI_score.gd" id="1_ph5uh"]
+
+[node name="GUI" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_ph5uh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HIGHSCORELABEL" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "HIGH
+      SCORE"
+
+[node name="hscor" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Spacer" type="NinePatchRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SCORELABEL" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "SCORE
+"
+
+[node name="score" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0
+"
+
+[node name="Spacer3" type="NinePatchRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="LIVESLABEL" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "LIVES"
+
+[node name="lives" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Spacer2" type="NinePatchRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ROUNDLABEL" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "ROUND
+"
+
+[node name="round" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0"
