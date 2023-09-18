@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw4k2qmyqnx4a"]
+
+[ext_resource type="Script" path="res://views/players/view_players.gd" id="1_cbk43"]
+[ext_resource type="PackedScene" uid="uid://rxthlt10pdpq" path="res://GUI/player_container/player_container.tscn" id="2_wg3j3"]
+
+[node name="view_players" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cbk43")
+metadata/_edit_use_anchors_ = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="PlayerContainer1" parent="GridContainer" instance=ExtResource("2_wg3j3")]
+layout_mode = 2
+
+[node name="PlayerContainer2" parent="GridContainer" instance=ExtResource("2_wg3j3")]
+layout_mode = 2
+
+[node name="PlayerContainer3" parent="GridContainer" instance=ExtResource("2_wg3j3")]
+layout_mode = 2
+
+[node name="PlayerContainer4" parent="GridContainer" instance=ExtResource("2_wg3j3")]
+layout_mode = 2
+
+[node name="PlayerContainer5" parent="GridContainer" instance=ExtResource("2_wg3j3")]
+layout_mode = 2
+
+[node name="PlayerContainer6" parent="GridContainer" instance=ExtResource("2_wg3j3")]
+layout_mode = 2

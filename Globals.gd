@@ -4,4 +4,4 @@ enum {
 	GAMEOVER
 }
 
-
+const KEYBOARD = -5

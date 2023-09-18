@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://rxthlt10pdpq"]
+
+[ext_resource type="Texture2D" uid="uid://outuweadasak" path="res://icon.svg" id="1_u4qix"]
+[ext_resource type="Script" path="res://GUI/AutoShrinkLabel/AutoShrinkLabel.gd" id="2_f7i1m"]
+[ext_resource type="FontFile" uid="uid://chc5dqkpimn3t" path="res://GUI/ShrinkFont.tres" id="2_rkfje"]
+
+[node name="PlayerContainer" type="MarginContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.203922, 0.203922, 0.203922, 1)
+layout_mode = 2
+texture = ExtResource("1_u4qix")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "JOIN"
+horizontal_alignment = 1
+
+[node name="name" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_rkfje")
+theme_override_font_sizes/font_size = 40
+text = "[name]"
+horizontal_alignment = 1
+autowrap_mode = 1
+max_lines_visible = 1
+script = ExtResource("2_f7i1m")
+minFontSize = 8
+
+[node name="Label4" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "PRESS ANY KEY "
+horizontal_alignment = 1
+
+[node name="device" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_rkfje")
+theme_override_font_sizes/font_size = 40
+text = "[device]"
+horizontal_alignment = 1
+autowrap_mode = 1
+max_lines_visible = 1
+script = ExtResource("2_f7i1m")
+minFontSize = 8
