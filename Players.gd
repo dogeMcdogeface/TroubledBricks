@@ -50,7 +50,6 @@ func connect_player(device_id):
 			players[i].device_id = device_id
 			players[i].device_name = "Keyboard" if players[i].keyboard else Input.get_joy_name(device_id)
 			return
-		
 
 
 

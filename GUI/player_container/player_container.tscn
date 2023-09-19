@@ -1,15 +1,86 @@
-[gd_scene load_steps=4 format=3 uid="uid://rxthlt10pdpq"]
+[gd_scene load_steps=13 format=3 uid="uid://rxthlt10pdpq"]
 
 [ext_resource type="Texture2D" uid="uid://outuweadasak" path="res://icon.svg" id="1_u4qix"]
 [ext_resource type="Script" path="res://GUI/AutoShrinkLabel/AutoShrinkLabel.gd" id="2_f7i1m"]
 [ext_resource type="FontFile" uid="uid://chc5dqkpimn3t" path="res://GUI/ShrinkFont.tres" id="2_rkfje"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_otue5"]
+animation = &"Active"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a3vbr"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yoq4j"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pmw0d"]
+switch_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5uwij"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vcmux"]
+states/Active/node = SubResource("AnimationNodeAnimation_otue5")
+states/Active/position = Vector2(240, 40)
+states/RESET/node = SubResource("AnimationNodeAnimation_a3vbr")
+states/RESET/position = Vector2(485, 37)
+states/Start/position = Vector2(225, 175)
+transitions = ["Active", "RESET", SubResource("AnimationNodeStateMachineTransition_yoq4j"), "RESET", "Active", SubResource("AnimationNodeStateMachineTransition_pmw0d"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_5uwij")]
+
+[sub_resource type="Animation" id="Animation_yxp7f"]
+resource_name = "Active"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 0.482968),
+"update": 0,
+"values": [Color(0.203922, 0.203922, 0.203922, 1), Color(0.290196, 0.203922, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6uok0"]
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.482968, 2.07053),
+"update": 0,
+"values": [Color(0.290196, 0.203922, 1, 1), Color(0.203922, 0.203922, 0.203922, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gjfcl"]
+_data = {
+"Active": SubResource("Animation_yxp7f"),
+"RESET": SubResource("Animation_6uok0")
+}
+
 [node name="PlayerContainer" type="MarginContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_vcmux")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_gjfcl")
+}
+
 [node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0.203922, 0.203922, 0.203922, 1)
+modulate = Color(0.290196, 0.203922, 1, 1)
 layout_mode = 2
 texture = ExtResource("1_u4qix")
 
