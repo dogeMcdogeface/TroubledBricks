@@ -1,6 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://rxthlt10pdpq"]
+[gd_scene load_steps=16 format=3 uid="uid://rxthlt10pdpq"]
 
+[ext_resource type="Script" path="res://GUI/player_container/player_container.gd" id="1_cxksm"]
 [ext_resource type="Texture2D" uid="uid://outuweadasak" path="res://icon.svg" id="1_u4qix"]
+[ext_resource type="Shader" path="res://GUI/shader_player_color/shader_player_color.gdshader" id="2_1hl6x"]
 [ext_resource type="Script" path="res://GUI/AutoShrinkLabel/AutoShrinkLabel.gd" id="2_f7i1m"]
 [ext_resource type="FontFile" uid="uid://chc5dqkpimn3t" path="res://GUI/ShrinkFont.tres" id="2_rkfje"]
 
@@ -16,8 +18,8 @@ switch_mode = 1
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pmw0d"]
 switch_mode = 1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5uwij"]
-advance_mode = 2
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_whsiw"]
+switch_mode = 1
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vcmux"]
 states/Active/node = SubResource("AnimationNodeAnimation_otue5")
@@ -25,7 +27,7 @@ states/Active/position = Vector2(240, 40)
 states/RESET/node = SubResource("AnimationNodeAnimation_a3vbr")
 states/RESET/position = Vector2(485, 37)
 states/Start/position = Vector2(225, 175)
-transitions = ["Active", "RESET", SubResource("AnimationNodeStateMachineTransition_yoq4j"), "RESET", "Active", SubResource("AnimationNodeStateMachineTransition_pmw0d"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_5uwij")]
+transitions = ["Active", "RESET", SubResource("AnimationNodeStateMachineTransition_yoq4j"), "RESET", "Active", SubResource("AnimationNodeStateMachineTransition_pmw0d"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_whsiw")]
 
 [sub_resource type="Animation" id="Animation_yxp7f"]
 resource_name = "Active"
@@ -33,14 +35,14 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/path = NodePath("Background:material:shader_parameter/saturation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 0.482968),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.203922, 0.203922, 0.203922, 1), Color(0.290196, 0.203922, 1, 1)]
+"values": [0.0, 0.4]
 }
 
 [sub_resource type="Animation" id="Animation_6uok0"]
@@ -48,14 +50,14 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/path = NodePath("Background:material:shader_parameter/saturation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.482968, 2.07053),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.290196, 0.203922, 1, 1), Color(0.203922, 0.203922, 0.203922, 1)]
+"values": [0.4, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gjfcl"]
@@ -64,9 +66,16 @@ _data = {
 "RESET": SubResource("Animation_6uok0")
 }
 
-[node name="PlayerContainer" type="MarginContainer"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_th7hs"]
+resource_local_to_scene = true
+shader = ExtResource("2_1hl6x")
+shader_parameter/saturation = 0.4
+shader_parameter/coloration = 0.642
+
+[node name="PlayerContainer" type="MarginContainer" groups=["players_listeners"]]
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_cxksm")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_vcmux")
@@ -79,8 +88,8 @@ libraries = {
 "": SubResource("AnimationLibrary_gjfcl")
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0.290196, 0.203922, 1, 1)
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_th7hs")
 layout_mode = 2
 texture = ExtResource("1_u4qix")
 
@@ -95,16 +104,35 @@ theme_override_font_sizes/font_size = 40
 text = "JOIN"
 horizontal_alignment = 1
 
-[node name="name" type="Label" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_rkfje")
+clip_tabs = false
+tabs_visible = false
+use_hidden_tabs_for_min_size = true
+
+[node name="nickname" type="Label" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "[name]"
 horizontal_alignment = 1
-autowrap_mode = 1
-max_lines_visible = 1
-script = ExtResource("2_f7i1m")
-minFontSize = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer/TabContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+
+[node name="Term" type="Label" parent="VBoxContainer/TabContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="VBoxContainer"]
 layout_mode = 2

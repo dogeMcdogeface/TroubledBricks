@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://rxthlt10pdpq" path="res://GUI/player_container/player_container.tscn" id="2_wg3j3"]
 
 [node name="view_players" type="Control"]
+process_priority = -4
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
